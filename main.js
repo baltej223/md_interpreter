@@ -1,3 +1,4 @@
+
 function c() {
     if (typeof this === 'string' || typeof this === 'number' || typeof this === 'boolean') {
         console.log(this.toString());
@@ -61,40 +62,61 @@ page = {
         } catch (error) {
             console.error('An Error occurred at page.divide(), Error:', error);
         }
-        $$$().then(function(el){
+        $$$().then(function (el) {
             el.appendChild(parent);
         });
     },
-    "css": function (url) {
+    "css": function (url, callback) {
         try {
-                styl = document.createElement('link');
-                styl.rel = 'stylesheet';
-                document.head.appendChild(styl);
+            let styl = document.createElement('link');
+            styl.rel = 'stylesheet';
+            document.head.appendChild(styl);
             styl.href = url;
-        }
-        catch (e) {
+            if (callback && typeof callback === 'function') {
+                callback(); // Execute callback if provided and is a function
+            }
+        } catch (e) {
             let style = document.querySelector("style");
             if (!style) {
                 style = document.createElement('style');
-                fetch(url).then(function (data) { style.innerHTML = data; });
-                document.head.appendChild(style);
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        style.innerHTML = data;
+                        document.head.appendChild(style);
+                        if (callback && typeof callback === 'function') {
+                            callback(); // Execute callback if provided and is a function
+                        }
+                    })
+                    .catch(error => console.error('Error fetching CSS:', error));
             }
         }
     },
-    "js": function (uri) {
+    "js": function (uri, callback) {
         try {
-
-            scr = document.createElement('script');
+            let scr = document.createElement('script');
             document.head.appendChild(scr);
             scr.src = uri;
-        }
-        catch (e) {
-            scr = document.createElement('script');
-            fetch(uri).then(function (data) { scr.innerHTML = data; });
-            document.head.appendChild(scr);
+            if (callback && typeof callback === 'function') {
+                scr.onload = callback; // Execute callback when script loads successfully
+            }
+        } catch (e) {
+            let scr = document.createElement('script');
+            fetch(uri)
+                .then(response => response.text())
+                .then(data => {
+                    scr.innerHTML = data;
+                    document.head.appendChild(scr);
+                    if (callback && typeof callback === 'function') {
+                        callback(); // Execute callback if provided and is a function
+                    }
+                })
+                .catch(error => console.error('Error fetching JS:', error));
         }
     }
+
 };
+
 Element.prototype.renderit = function (content) {
     if (this instanceof Element) {
         //this.innerHTML += content;
@@ -113,7 +135,7 @@ Element.prototype.update = function (content) {
 function $$$(selector = "body", index = 0) {
     return new Promise((resolve, reject) => {
         const onDOMContentLoaded = () => {
-            var element = document.querySelectorAll(selector)[index]; 
+            var element = document.querySelectorAll(selector)[index];
             if (element) {
                 resolve(element);
             } else {
@@ -130,23 +152,23 @@ function $$$(selector = "body", index = 0) {
 }
 getData();
 function getData(url) {
-    document.addEventListener("DOMContentLoaded",function(){
-    if (url) {
-        fetch(url)
-            .then(function (rec) {
-                pr1(rec);
-            })
-            .catch(function (e) {
-                console.error(e);
+    document.addEventListener("DOMContentLoaded", function () {
+        if (url) {
+            fetch(url)
+                .then(function (rec) {
+                    pr1(rec);
+                })
+                .catch(function (e) {
+                    console.error(e);
+                });
+        }
+        else {
+            $$$().then(function (el) {
+                pr1(el.innerHTML);
+                //el.innerHTML.c();
             });
-    }
-    else {
-        $$$().then(function(el){
-            pr1(el.innerHTML);
-            //el.innerHTML.c();
-        });
-    }
-});
+        }
+    });
 }
 const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function pr1(str) {
@@ -159,7 +181,7 @@ function pr1(str) {
 }
 
 function pr2(data) {
-//made and enhanced using AI :(
+    //made and enhanced using AI :(
     // Handle headings (h1 to h6)
     data = data.replace(/^#\s(.+)/gm, '<h1>$1</h1>\n---');
     data = data.replace(/^##\s(.+)/gm, '<h2>$1</h2>');
@@ -248,17 +270,21 @@ function pr2(data) {
     
 }
 */
-function deliver(data){
+function deliver(data) {
     //update dom and highlight.js
-    $$$().then(function(body){
+    $$$().then(function (body) {
         body.update(`
             <div class='parent'> 
             ${data}
             </div>
             `);
-    }).catch(function(e){console.log(e);});
-    $(function(){
-        hljs.highlightAll();
+    }).catch(function (e) { console.log(e); });
+
+    //for heighlight.js
+    page.js("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js", function () {
+        page.css("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css", function () {
+            hljs.highlightAll();
+        });
     });
     //make copy icons working
     //copyIcons();
@@ -267,12 +293,12 @@ function deliver(data){
 function searchAll(string, word) {
     let indices = [];
     let index = string.indexOf(word);
-    
+
     while (index !== -1) {
         indices.push(index);
         index = string.indexOf(word, index + 1);
     }
-    
+
     return indices;
 }
 function sliceBetween(what, to, string) {
@@ -311,26 +337,30 @@ function sliceAfterAndStop(what, string) {
 
     return slices;
 }
-
+function ready(callback) {
+    // in case the document is already rendered
+    if (document.readyState != 'loading') {
+        callback();
+    } else { // modern browsers
+        document.addEventListener('DOMContentLoaded', callback);
+    }
+}
 // for jquery
-try{
-page.js("https://code.jquery.com/jquery-3.7.1.slim.min.js");
-//page.js("./files/jquery.js")
+try {
+    page.js("https://code.jquery.com/jquery-3.7.1.slim.min.js");
+    //page.js("./files/jquery.js")
 }
-catch(e){
-"Unable to import jquery,Error"+e.c();
+catch (e) {
+    "Unable to import jquery,Error" + e.c();
 }
-//for heighlight.js
-page.js("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js");
-page.css("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css");
 
-$$$().then(function(b){
-b.renderit(`
-    
-    `);
-});
+
+
 function copyIcons() {
 }
-md = {'load':function(url){
-    getData(url)
-}}
+md = {
+    'load': function (url) {
+        getData(url)
+    }
+}
+//<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
