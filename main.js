@@ -198,10 +198,7 @@ function pr2(data) {
     // Handle strikethrough text
     data = data.replace(/~~(.*?)~~/g, '<del>$1</del>');
 
-    // Handle links ([link name](link address))
-    data = data.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
-    // Handle images (![alt text](image url))
+     // Handle images (![alt text](image url))
     data = data.replace(/!\[([^\]]+)\]\(([^)]+)\)/g, (match, alt, url) => {
         // Check if it's an SVG image
         if (url.toLowerCase().endsWith('.svg')) {
@@ -210,6 +207,9 @@ function pr2(data) {
             return `<img src="${url}" alt="${alt}">`;
         }
     });
+    
+    // Handle links ([link name](link address))
+    data = data.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
     // Handle blockquotes (> blockquote)
     data = data.replace(/^\s*>\s(.+)/gm, '<blockquote>$1</blockquote>');
