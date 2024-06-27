@@ -115,7 +115,6 @@ page = {
     }
 
 };
-
 Element.prototype.renderit = function (content) {
     if (this instanceof Element) {
         //this.innerHTML += content;
