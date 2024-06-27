@@ -130,7 +130,8 @@ function $$$(selector = "body", index = 0) {
 }
 getData();
 function getData(url) {
-    if (!(!url)) {
+    document.addEventListener("DOMContentLoaded",function(){
+    if (url) {
         fetch(url)
             .then(function (rec) {
                 pr1(rec);
@@ -145,6 +146,7 @@ function getData(url) {
             //el.innerHTML.c();
         });
     }
+});
 }
 const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function pr1(str) {
@@ -159,7 +161,7 @@ function pr1(str) {
 function pr2(data) {
 //made and enhanced using AI :(
     // Handle headings (h1 to h6)
-    data = data.replace(/^#\s(.+)/gm, '<h1>$1</h1>');
+    data = data.replace(/^#\s(.+)/gm, '<h1>$1</h1>\n---');
     data = data.replace(/^##\s(.+)/gm, '<h2>$1</h2>');
     data = data.replace(/^###\s(.+)/gm, '<h3>$1</h3>');
     data = data.replace(/^####\s(.+)/gm, '<h4>$1</h4>');
