@@ -1,5 +1,6 @@
-# md_interpreter
-Make github like README file in your own website
+# Markdown files interpreter
+Make github like README in HTML site
+**IT IS NOT A README FILE GENRATOR**
 ```
 https://baltej223.github.io/md_interpreter/main.js
 ```
