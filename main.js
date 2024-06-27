@@ -1,4 +1,3 @@
-
 function c() {
     if (typeof this === 'string' || typeof this === 'number' || typeof this === 'boolean') {
         console.log(this.toString());
