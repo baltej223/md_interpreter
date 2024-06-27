@@ -199,7 +199,7 @@ function pr2(data) {
     data = data.replace(/~~(.*?)~~/g, '<del>$1</del>');
 
      // Handle images (![alt text](image url))
-    data = data.replace(/!\[([^\]]+)\]\(([^)]+\(?:\([^)]*\))?)\)/g, (match, alt, url) => {
+    data = data.replace(/\!\[([^\]]+)\]\(([^)]+)\)/g, (match, alt, url) => {
         // Check if it's an SVG image
         if (url.toLowerCase().endsWith('.svg')) {
             return `<object type="image/svg+xml" data="${url}" aria-label="${alt}" class="svg-img"></object>`;
