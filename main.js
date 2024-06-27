@@ -223,7 +223,7 @@ function pr2(data) {
     // Handle horizontal rules (--- or ***)
     data = data.replace(/^\s*[-*]{3,}\s*$/gm, '<hr>');
 
-    data = data.replace(/```([\s\S]*?)```/g, (match, codeContent) => {
+    data = data.replace(```([\s\S]*?)```/g, (match, codeContent) => {
         // Remove the leading and trailing newlines
         codeContent = codeContent.trim();
         // Replace double line breaks with <br> tags within code blocks
