@@ -358,4 +358,5 @@ md = {
         getData(url)
     }
 }
+page.css("https://baltej223.github.io/md_interpreter/css.css");
 //<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
