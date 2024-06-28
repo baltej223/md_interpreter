@@ -11,10 +11,13 @@ Put it in your readme file's head tag, but.. readme.md files don't have a html l
 
 # Working of md_interpreter-js ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-<br/>
+<br>
+
 I wrote this md_interpreter-js which is just a js file which you can use to write MarkDown Files
 in html page and it also have a github like interface 
+
 ## Loading .md files
+
 ### md.load()
 For using this MarkDown-interpretor need to call
 ```
