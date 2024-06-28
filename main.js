@@ -65,7 +65,7 @@ page = {
             el.appendChild(parent);
         });
     },
-    "css": function (url, callback) {
+    "css": function (url, callback=function(){}) {
         try {
             let styl = document.createElement('link');
             styl.rel = 'stylesheet';
@@ -91,7 +91,7 @@ page = {
             }
         }
     },
-    "js": function (uri, callback) {
+    "js": function (uri, callback=function(){}) {
         try {
             let scr = document.createElement('script');
             document.head.appendChild(scr);
@@ -130,17 +130,26 @@ Element.prototype.update = function (content) {
         console.error("update method used on wrong type.");
     }
 };
-function $$$(selector = "body", index = 0) {
+function $$$(selector = "body", index = 0,returnarray=false) {
     return new Promise((resolve, reject) => {
         const onDOMContentLoaded = () => {
+            if(!returnarray){
             var element = document.querySelectorAll(selector)[index];
             if (element) {
                 resolve(element);
             } else {
                 reject(`Element with selector '${selector}' and index ${index} not found.`);
             }
+          }
+          else{
+            element = document.querySelectorAll(selector);
+            if (element) {
+                resolve(element);
+            } else {
+                reject(`Element with selector '${selector}' and index ${index} not found.`);
+            }
+          }
         };
-
         if (document.readyState === 'loading') {
             document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
         } else {
@@ -148,55 +157,65 @@ function $$$(selector = "body", index = 0) {
         }
     });
 }
-getData();
+//getData();
+md = {
+    'load': function (url) {
+        getData(url);
+    }
+}
 function getData(url) {
     document.addEventListener("DOMContentLoaded", function () {
         if (url) {
             fetch(url)
-                .then(function (rec) {
-                    pr1(rec);
+                .then(response => response.text())
+                .then(data => {
+                    pr1(data); // Parse Markdown content
+                    "fetchFired".c();
                 })
-                .catch(function (e) {
-                    console.error(e);
+                .catch(error => {
+                    console.error(error);
                 });
-        }
-        else {
-            $$$().then(function (el) {
-                pr1(el.innerHTML);
-                //el.innerHTML.c();
+        } else {
+            $$$().then(el => {
+                pr1(el.innerHTML); // Parse content if no URL provided
+                "simply passed data".c();
             });
         }
     });
 }
+
 const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function pr1(str) {
+
     // remove script tags
     str = str.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+
     // remove html comments
     str = str.replace(/<!--[\s\S]*?-->/g, '');
+
     //escape html here
     pr2(escapeHtml(str));
 }
-
 function pr2(data) {
+    
     //made and enhanced using AI :(
     // Handle headings (h1 to h6)
-    data = data.replace(/^#\s(.+)/gm, '<h1>$1</h1>\n---');
-    data = data.replace(/^##\s(.+)/gm, '<h2>$1</h2>');
-    data = data.replace(/^###\s(.+)/gm, '<h3>$1</h3>');
-    data = data.replace(/^####\s(.+)/gm, '<h4>$1</h4>');
-    data = data.replace(/^#####\s(.+)/gm, '<h5>$1</h5>');
-    data = data.replace(/^######\s(.+)/gm, '<h6>$1</h6>');
-
+    data = data.replace(/^(\s*)######\s+(.+)/gm, "$1<h6>$2</h6>");
+    data = data.replace(/^(\s*)#####\s+(.+)/gm, "$1<h5>$2</h5>");
+    data = data.replace(/^(\s*)####\s+(.+)/gm, "$1<h4>$2</h4>");
+    data = data.replace(/^(\s*)###\s+(.+)/gm, "$1<h3>$2</h3>");
+    data = data.replace(/^(\s*)##\s+(.+)/gm, "$1<h2>$2</h2>");
+    data = data.replace(/^(\s*)#\s+(.+)/gm, "$1<h1>$2</h1>\n---");
+    
     // Handle bold text
     data = data.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
+    
     // Handle italic text
     data = data.replace(/\*(.*?)\*/g, '<em>$1</em>');
-
+    
     // Handle strikethrough text
     data = data.replace(/~~(.*?)~~/g, '<del>$1</del>');
-
+    
      // Handle images (![alt text](image url))
     data = data.replace(/\!\[([^\]]+)\]\(([^)]+)\)/g, (match, alt, url) => {
         // Check if it's an SVG image
@@ -209,25 +228,30 @@ function pr2(data) {
     
     // Handle links ([link name](link address))
     data = data.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
     // Handle blockquotes (> blockquote)
-    data = data.replace(/^\s*>\s(.+)/gm, '<blockquote>$1</blockquote>');
-
+    
+    //###ERROR####
+    // Blockquote feature dont work as '>' is already being escaped!
+    //############
+    data = data.replace(/^\s*(>|&gt;)\s*(.+)/gm, '<blockquote>$2</blockquote>');
+    
     // Handle ordered lists (1. list item)
     data = data.replace(/^\s*\d+\.\s(.+)/gm, '<ol><li>$1</li></ol>');
-
+    
     // Handle unordered lists (- list item)
     data = data.replace(/^\s*-\s(.+)/gm, '<ul><li>$1</li></ul>');
-
+    
     // Handle horizontal rules (--- or ***)
     data = data.replace(/^\s*[-*]{3,}\s*$/gm, '<hr>');
-
+    
     // Handle code blocks (```language\n code \n```)
-    data = data.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-
-    // Replace double line breaks with <br> tags
-    data = data.replace(/\n{2,}/g, '<br>');
-
+    //also in data-toCopy pasing encrypted data so it dont cause any problem
+    data = data.replace(/```([\s\S]*?)```/g, function(match, group1) {
+        var escapedContent = escapeHtml(group1.trim()); // Escape HTML entities within code block
+        var encryptedContent = btoa(group1.trim());
+        return '<pre><code class="code-block">' + escapedContent + '</code></pre><svg data-toCopy="' + encryptedContent + '" aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="copy-icon"> <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path></svg>';
+    });
+    
     // Deliver the formatted data to the DOM
     deliver(data);
 }
@@ -284,9 +308,6 @@ function deliver(data) {
             hljs.highlightAll();
         });
     });
-    //make copy icons working
-    //copyIcons();
-    //-----------------
 }
 function searchAll(string, word) {
     let indices = [];
@@ -296,7 +317,6 @@ function searchAll(string, word) {
         indices.push(index);
         index = string.indexOf(word, index + 1);
     }
-
     return indices;
 }
 function sliceBetween(what, to, string) {
@@ -337,12 +357,13 @@ function sliceAfterAndStop(what, string) {
 }
 function ready(callback) {
     // in case the document is already rendered
-    if (document.readyState != 'loading') {
+    if (document.readyState !== 'loading') {
         callback();
     } else { // modern browsers
         document.addEventListener('DOMContentLoaded', callback);
     }
 }
+
 // for jquery
 try {
     page.js("https://code.jquery.com/jquery-3.7.1.slim.min.js");
@@ -351,14 +372,55 @@ try {
 catch (e) {
     "Unable to import jquery,Error" + e.c();
 }
-function copyIcons() {
-}
-md = {
-    'load': function (url) {
-        getData(url)
-    }
-}
+
 page.css("https://baltej223.github.io/md_interpreter/css.css",function(){
-    console.log("Imported");
+    //console.log("Imported");
 });
+
 //<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+
+ // Function to unescape HTML entities
+    function unescapeHtml(html) {
+        let textarea = document.createElement("textarea");
+        textarea.innerHTML = html;
+        setTimeout(function(){
+            document.removeChild(textarea);
+        },100);
+        return textarea.value;
+    }
+function copy(data) {
+    // Unescape the HTML text
+    let unescapedText = unescapeHtml(data);
+
+    // Copy unescaped text to clipboard
+    navigator.clipboard.writeText(unescapedText)
+        .then(() => {
+            console.log("Text copied to clipboard:", unescapedText);
+            // Optionally, provide feedback or handle success
+        })
+        .catch(err => {
+            console.error("Failed to copy text to clipboard:", err);
+            // Optionally, handle error
+        });
+}
+String.prototype.copy = function() {
+    copy(this);
+};
+Function.prototype.ready = function(){
+    ready(this);
+}
+//tick svg
+// <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" class="check-icon"> <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>
+// make those copy icons work
+
+window.onload = function() {
+    let ci = document.querySelectorAll(".copy-icon");
+    console.log(ci.length);
+    
+    ci.forEach(function(icon) {
+        icon.addEventListener("click", function() {
+            let dataToCopy = atob(this.getAttribute('data-tocopy'));
+           dataToCopy.copy();
+        });
+    });
+};
