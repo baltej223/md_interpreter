@@ -160,6 +160,9 @@ function $$$(selector = "body", index = 0,returnarray=false) {
 md = {
     'load': function (url) {
         getData(url);
+    },
+    'process':function(data){
+        pr1(data);
     }
 }
 function getData(url) {
@@ -169,7 +172,7 @@ function getData(url) {
                 .then(response => response.text())
                 .then(data => {
                     pr1(data); 
-                    "fetchFired".c();
+
                 })
                 .catch(error => {
                     console.error(error);
@@ -177,7 +180,7 @@ function getData(url) {
         } else {
             $$$().then(el => {
                 pr1(el.innerHTML); 
-                "simply passed data".c();
+
             });
         }
     });
@@ -240,7 +243,8 @@ function pr2(data) {
     deliver(data);
 }
 
-function deliver(data) {
+function deliver(data,tort) {
+    if (!tort){
 
     $$$().then(function (body) {
         body.update(`
@@ -249,6 +253,10 @@ function deliver(data) {
             </div>
             `);
     }).catch(function (e) { console.log(e); });
+}
+else{
+return data;
+}
 
     page.js("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js", function () {
         page.css("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css", function () {
