@@ -373,7 +373,7 @@ catch (e) {
     "Unable to import jquery,Error" + e.c();
 }
 
-page.css("https://baltej223.github.io/md_interpreter/css.css",function(){
+page.css("https://baltej223.github.io/md_interpreter/files/css.css",function(){
     //console.log("Imported");
 });
 
