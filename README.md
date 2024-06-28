@@ -24,7 +24,14 @@ md.load();
 ```
 if you pass any url of a markdown file, then it will fetch that url and display that markdown file
 **but if you dont pass any parameter then if will pick up what is written in body, if is markdown, will display it**
-
+**and thats all you need to load a MARKDOWN(.md) file**
+### md.process()
+use this if you want end result should be returned rather than being displayed
+Syntax:
+```
+md.process(data)
+// data is data that you want to process
+```
 
 The js file that i created have many functions which might be helpful for other tasks to.
 I was thinkin to make a personal-js github repositry in which i may keep these functions.
