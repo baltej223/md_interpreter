@@ -192,6 +192,10 @@ function pr1(str) {
 
     // remove html comments
     str = str.replace(/<!--[\s\S]*?-->/g, '');
+    
+    //and if somehow bymistake user has put <br> tags so handeling them here
+    str = str.replace(/<br\s*\/?>/gi, "\n");
+    //BR tag done!
 
     //escape html here
     pr2(escapeHtml(str));
@@ -216,8 +220,8 @@ function pr2(data) {
     // Handle strikethrough text
     data = data.replace(/~~(.*?)~~/g, '<del>$1</del>');
     
-     // Handle images (![alt text](image url))
-    data = data.replace(/\!\[([^\]]+)\]\(([^)]+)\)/g, (match, alt, url) => {
+     // Handle images ![alt text](image url)
+    data = data.replace(/\!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
         // Check if it's an SVG image
         if (url.toLowerCase().endsWith('.svg')) {
             return `<object type="image/svg+xml" data="${url}" aria-label="${alt}" class="svg-img"></object>`;
