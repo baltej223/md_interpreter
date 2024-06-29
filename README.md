@@ -1,19 +1,20 @@
 # Markdown files interpreter
-Make github like README in HTML site
+Make github like README ,in your HTML site
 
 **IT IS NOT A README FILE GENRATOR**
-So basically if you want to write documetation for yourslef or want to write documentation which have a github like interface, you can use this js file that I made.
 
-Put it in your readme file's head tag, but.. readme.md files don't have a html like interface..
+Write MarkDown in your Webpage and use this library to interpret it.
+
+Put it in your HTML file's head tag,
 ```
-<script src='https://baltej223.github.io/md_interpreter/main.js'>
+<script src='https://baltej223.github.io/md_interpreter/main.js'> </script>
 ```
 
 # Working of md_interpreter-js ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
 <br>
 
-I wrote this md_interpreter-js which is just a js file which you can use to write MarkDown Files
+I wrote this md_interpreter-js which you can use to write MarkDown Files
 in html page and it also have a github like interface 
 
 ## Loading .md files
@@ -198,10 +199,11 @@ copy(data);
 data.copy();
 ```
 #### These were all the powers it had :)
-```
-Made and Organised by: Baltej Singh
-``` 
 
 An exmaple [file i have](https://baltej223.github.io/md_interpreter/files/example.html)
 <br>
 another example [here](https://baltej223.github.io/md_interpreter/files/example2.html)
+
+```
+Made and Organised by: Baltej Singh
+```
