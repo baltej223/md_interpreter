@@ -129,26 +129,30 @@ Element.prototype.update = function (content) {
         console.error("update method used on wrong type.");
     }
 };
-function $$$(selector = "body", index = 0,returnarray=false) {
+function $$$(selector = "body", index = 0, returnarray = false) {
     return new Promise((resolve, reject) => {
         const onDOMContentLoaded = () => {
-            if(!returnarray){
-            var element = document.querySelectorAll(selector)[index];
-            if (element) {
-                resolve(element);
-            } else {
-                reject(`Element with selector '${selector}' and index ${index} not found.`);
+            try {
+                if (!returnarray) {
+                    var element = document.querySelectorAll(selector)[index];
+                    if (element) {
+                        resolve(element);
+                    } else {
+                        reject(`Element with selector '${selector}' and index ${index} not found.`);
+                    }
+                } else {
+                    var elements = document.querySelectorAll(selector);
+                    if (elements.length > 0) {
+                        resolve(Array.from(elements)); // Resolve with an array of elements
+                    } else {
+                        reject(`No elements found with selector '${selector}'.`);
+                    }
+                }
+            } catch (error) {
+                reject(`Error selecting element: ${error}`);
             }
-          }
-          else{
-            element = document.querySelectorAll(selector);
-            if (element) {
-                resolve(element);
-            } else {
-                reject(`Element with selector '${selector}' and index ${index} not found.`);
-            }
-          }
         };
+
         if (document.readyState === 'loading') {
             document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
         } else {
