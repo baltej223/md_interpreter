@@ -23,7 +23,7 @@ md = {
         pr1(data,true);
     }
 }
-page.js("https://baltej223.github.io/personal/personal.js")
+page.js("https://baltej223.github.io/personal/personal.js");
 function getData(url) {
     document.addEventListener("DOMContentLoaded", function () {
         if (url) {
