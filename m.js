@@ -23,7 +23,7 @@ md = {
         pr1(data,true);
     }
 }
-page.js("https://baltej223.github.io/personal/personal.js");
+page.js("https://baltej223.github.io/personal/personal.js",function(){
 function getData(url) {
     document.addEventListener("DOMContentLoaded", function () {
         if (url) {
@@ -127,3 +127,5 @@ window.onload = function() {
         });
     });
 };
+
+});//ending of callback function passed as a parameter to page.js which will only fire once personal.js (https://baltej223.github.io/personal/personal.js) will be fully imported
