@@ -42,20 +42,21 @@ md.process(data)
 The js file that i created have many functions which might be helpful for other tasks to.
 I was thinkin to make a personal-js github repositry in which i may keep these functions.
 here is a list of all function that i created
+edit: i created [personal.js](https://github.com/baltej223/personal)
 
 #### functions
 - page
-- **.c()** *(my fav)*
-- .renderit()
-- .update()
-- **$$$()** *(my fav)*
-- escapeHtml()
-- **searchAll()**
-- **sliceBetween()**
-- **sliceAfterAndStop()**
+- **.c()** *(my fav)* **moved to [moved to other repositry](https://github.com/baltej223/personal)
+- .renderit() [moved to other repositry](https://github.com/baltej223/personal)
+- .update() 
+- **$$$()** *(my fav)* 
+- escapeHtml() 
+- **searchAll()** [moved to other repositry](https://github.com/baltej223/personal)
+- **sliceBetween()** [moved to other repositry](https://github.com/baltej223/personal)
+- **sliceAfterAndStop()** [moved to other repositry](https://github.com/baltej223/personal)
 - **ready()**
 - unescapeHtml()
-- **copy()** *(my fav)*
+- **copy()** *(my fav)* 
 ---
 
 ## page
