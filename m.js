@@ -3,7 +3,6 @@ page.js("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.mi
             hljs.highlightAll();
         });
     });
-}
 try {
     page.js("https://code.jquery.com/jquery-3.7.1.slim.min.js");
 
