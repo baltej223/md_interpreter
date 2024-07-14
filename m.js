@@ -93,10 +93,10 @@ page = {
     }
 
 };
-Element.prototype.renderit = function (content) {
+Element.prototype.update = function (content) {
     if (this instanceof Element) {
 
-        this.innerHTML += content;
+        this.innerHTML = content;
     } else {
         console.error("renderin method used on wrong type.");
     }
