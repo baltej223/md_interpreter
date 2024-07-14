@@ -1,24 +1,3 @@
-function c() {
-    if (typeof this === 'string' || typeof this === 'number' || typeof this === 'boolean') {
-        console.log(this.toString());
-    } else if (typeof this === 'function') {
-        console.log(this.toString());
-    } else if (Array.isArray(this)) {
-        console.log(JSON.stringify(this));
-    } else if (typeof this === 'object' && this !== null) {
-        console.log(JSON.stringify(this));
-    } else {
-        console.log(this);
-    }
-}
-
-String.prototype.c = c;
-Number.prototype.c = c;
-Boolean.prototype.c = c;
-Array.prototype.c = c;
-Object.prototype.c = c;
-Function.prototype.c = c;
-
 page = {
     "title": function (Title) {
         if (Title != undefined) {
@@ -114,19 +93,12 @@ page = {
     }
 
 };
-Element.prototype.renderit = function (content) {
-    if (this instanceof Element) {
-
-        this.innerHTML += content;
-    } else {
-        console.error("renderin method used on wrong type.");
-    }
-};
 Element.prototype.update = function (content) {
     if (this instanceof Element) {
+
         this.innerHTML = content;
     } else {
-        console.error("update method used on wrong type.");
+        console.error("renderin method used on wrong type.");
     }
 };
 function $$$(selector = "body", index = 0, returnarray = false) {
@@ -267,52 +239,6 @@ return data;
             hljs.highlightAll();
         });
     });
-}
-function searchAll(string, word) {
-    let indices = [];
-    let index = string.indexOf(word);
-
-    while (index !== -1) {
-        indices.push(index);
-        index = string.indexOf(word, index + 1);
-    }
-    return indices;
-}
-function sliceBetween(what, to, string) {
-    let slices = [];
-    let startIndex = string.indexOf(what);
-
-    while (startIndex !== -1) {
-        let endIndex = string.indexOf(to, startIndex + 1);
-
-        if (endIndex !== -1) {
-            let slicedString = string.slice(startIndex + what.length, endIndex).trim();
-            slices.push(slicedString);
-            startIndex = string.indexOf(what, endIndex + to.length);
-        } else {
-            break;
-        }
-    }
-    return slices;
-}
-function sliceAfterAndStop(what, string) {
-    let slices = [];
-    let index = string.indexOf(what);
-
-    while (index !== -1) {
-        let newlineIndex = string.indexOf('\n', index);
-        let stopIndex = (newlineIndex !== -1) ? newlineIndex : string.length;
-
-        if (stopIndex !== -1) {
-            let slicedString = string.slice(index + what.length, stopIndex).trim();
-            slices.push(slicedString);
-            index = string.indexOf(what, stopIndex);
-        } else {
-            break;
-        }
-    }
-
-    return slices;
 }
 function ready(callback) {
 
