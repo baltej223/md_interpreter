@@ -264,9 +264,6 @@ page.css("https://baltej223.github.io/md_interpreter/files/css.css",function(){
     function unescapeHtml(html) {
         let textarea = document.createElement("textarea");
         textarea.innerHTML = html;
-        setTimeout(function(){
-            document.removeChild(textarea);
-        },100);
         return textarea.value;
     }
 function copy(data) {
