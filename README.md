@@ -46,7 +46,7 @@ edit: i created [personal.js](https://github.com/baltej223/personal)
 
 #### functions
 - page
-- **.c()** *(my fav)* **moved to [permanently moved to other repositry](https://github.com/baltej223/personal)
+- **.c()** *(my fav)* [permanently moved to other repositry](https://github.com/baltej223/personal)
 - .renderit() [permanently moved to other repositry](https://github.com/baltej223/personal)
 - .update() 
 - **$$$()** *(my fav)* 
