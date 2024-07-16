@@ -207,7 +207,7 @@ function pr2(data) {
 
     data = data.replace(/^\s*[-*]{3,}\s*$/gm, '<hr>');
 
-    data = data.replace(/==(.*?)==/g, '<mark>$1</mark>');
+    data = data.replace(/==([^=]+)==/g, '<mark>$1</mark>');
     
     data = data.replace(/```([\s\S]*?)```/g, function(match, group1) {
         var encryptedContent = btoa(group1);
