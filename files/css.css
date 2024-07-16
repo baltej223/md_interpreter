@@ -46,3 +46,6 @@ hr {
     border: none;
     cursor: pointer; /* Optional: Change cursor on hover */
 }
+mark{
+backgroung-color:#fffec4;
+}
