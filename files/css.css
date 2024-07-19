@@ -2,7 +2,12 @@
     padding: 10px 200px 0px 10vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+@media only screen and (width < 600px) {
+    .parent {
+        padding: 10px 5vw 0px 5vw;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
 hr {
     padding-right: 20px;
 }
@@ -13,39 +18,47 @@ hr {
 }
 
 .copy-icon {
-    position: relative; /* Changed to absolute positioning */
-    top: -45px; /* Adjust top position as needed */
-    right: 10px; /* Adjust right position as needed */
+    position: relative;
+    top: -45px;
+    right: 10px;
     float: right;
-    /* Additional styling */
     background-color: #f6f8fa;
     padding: 5px;
     border: none;
-    cursor: pointer; /* Optional: Change cursor on hover */
+    cursor: pointer;
 }
+
 .copy-icon:hover {
-    position: relative; /* Changed to absolute positioning */
-    top: -45px; /* Adjust top position as needed */
-    right: 10px; /* Adjust right position as needed */
-    float: right;
-    /* Additional styling */
-    background-color: #f1f0f0; /* Example background color */
-    padding: 5px;
-    border: none;
-    cursor: pointer; /* Optional: Change cursor on hover */
+    background-color: #f1f0f0;
 }
+
 .copy-icon:active {
     transition: background-color 0.1s;
-    position: relative; /* Changed to absolute positioning */
-    top: -45px; /* Adjust top position as needed */
-    right: 10px; /* Adjust right position as needed */
+    background-color: #e6e4e4;
+}
+
+.check-icon {
+    position: relative;
+    top: -45px;
+    right: 10px;
     float: right;
-    /* Additional styling */
-    background-color: #e6e4e4; /* Example background color */
+    background-color: #f6f8fa;
     padding: 5px;
     border: none;
-    cursor: pointer; /* Optional: Change cursor on hover */
+    cursor: pointer;
 }
-mark{
-backgroung-color:#fffec4;
+
+.check-icon:hover {
+    background-color: #f1f0f0;
 }
+
+.check-icon:active {
+    transition: background-color 0.1s;
+    background-color: #e6e4e4;
+}
+
+/* Hide check mark icon by default */
+.check-icon {
+    display: none;
+}
+
