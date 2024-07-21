@@ -44,7 +44,7 @@ I was thinkin to make a personal-js github repositry in which i may keep these f
 here is a list of all function that i created
 edit: i created [personal.js](https://github.com/baltej223/personal)
 
-#### functions
+#### functions (permanently moved!)
 - page
 - **.c()** *(my fav)* [permanently moved to other repositry](https://github.com/baltej223/personal)
 - .renderit() [permanently moved to other repositry](https://github.com/baltej223/personal)
