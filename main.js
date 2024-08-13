@@ -138,7 +138,7 @@ md = {
         getData(url);
     },
     'process':function(data){
-        pr1(data);
+        pr1(data,true);
     }
 }
 function getData(url) {
@@ -163,7 +163,7 @@ function getData(url) {
 }
 
 const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-function pr1(str) {
+function pr1(str,toReturn) {
 
     str = str.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
 
@@ -171,9 +171,9 @@ function pr1(str) {
 
     str = str.replace(/<br\s*\/?>/gi, "\n");
 
-    pr2(escapeHtml(str));
+    pr2(escapeHtml(str),,toReturn);
 }
-function pr2(data) {
+function pr2(data,toReturn) {
 
     data = data.replace(/^(\s*)######\s+(.+)/gm, "$1<h6>$2</h6>");
     data = data.replace(/^(\s*)#####\s+(.+)/gm, "$1<h5>$2</h5>");
@@ -218,10 +218,10 @@ function pr2(data) {
 
     data = data.replace(/!{t}/g, '<svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" class="check-icon"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>');
 
-    deliver(data);
+    deliver(data,,toReturn);
 }
 
-function deliver(data,tort) {
+function deliver(data,tort=false) {
     if (!tort){
 
     $$$().then(function (body) {
