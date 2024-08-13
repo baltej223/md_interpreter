@@ -171,7 +171,7 @@ function pr1(str,toReturn) {
 
     str = str.replace(/<br\s*\/?>/gi, "\n");
 
-    pr2(escapeHtml(str),,toReturn);
+    pr2(escapeHtml(str),toReturn);
 }
 function pr2(data,toReturn) {
 
