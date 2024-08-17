@@ -162,7 +162,8 @@ function getData(url) {
     });
 }
 
-const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+//const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const escapeHtml = str => str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function pr1(str,toReturn) {
 
     str = str.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
