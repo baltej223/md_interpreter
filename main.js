@@ -301,3 +301,15 @@ window.onload = function() {
         });
     });
 };
+let theme = {
+    dark:()=>{
+        page.css("https://baltej223.github.io/md_interpreter/files/css-darktheme.css",function(){
+            console.info("Dark Theme loaded!");
+        });
+    }, 
+    light:()=>{
+    page.css("https://baltej223.github.io/md_interpreter/files/css.css",function(){
+            console.info("Light Theme forcefully loaded!");
+        });
+    }
+};
