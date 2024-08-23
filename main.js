@@ -136,13 +136,14 @@ function $$$(selector = "body", index = 0, returnarray = false) {
 md = {
     'load': function (url) {
         getData(url);
+        start__Time = new Date().getTime();
     },
     'process':function(data){
         pr1(data,true);
     }
 }
 function getData(url) {
-    document.addEventListener("DOMContentLoaded", function () {
+    ready(()=>{
         if (url) {
             fetch(url)
                 .then(response => response.text())
@@ -180,7 +181,7 @@ function pr2(data,toReturn) {
     data = data.replace(/^(\s*)#####\s+(.+)/gm, "$1<h5>$2</h5>");
     data = data.replace(/^(\s*)####\s+(.+)/gm, "$1<h4>$2</h4>");
     data = data.replace(/^(\s*)###\s+(.+)/gm, "$1<h3>$2</h3>");
-    data = data.replace(/^(\s*)##\s+(.+)/gm, "$1<h2>$2</h2>");
+    data = data.replace(/^(\s*)##\s+(.+)/gm, "$1<h2>$2</h2>\n---");
     data = data.replace(/^(\s*)#\s+(.+)/gm, "$1<h1>$2</h1>\n---");
 
     data = data.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -231,6 +232,9 @@ function deliver(data,tort=false) {
             ${data}
             </div>
             `);
+            end__Time = new Date().getTime();
+            execution___TIME = end__Time - start__Time;
+            console.log("Finished in :",execution___TIME," ms");
     }).catch(function (e) { console.log(e); });
 }
 else{
@@ -292,8 +296,8 @@ Function.prototype.ready = function(){
 
 window.onload = function() {
     let ci = document.querySelectorAll(".copy-icon");
-    console.log(ci.length);
-
+    //console.log(ci.length);
+    // uncomment it for checking the number of codeblocks 
     ci.forEach(function(icon) {
         icon.addEventListener("click", function() {
             let dataToCopy = atob(this.getAttribute('data-tocopy'));
