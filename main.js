@@ -234,7 +234,7 @@ function deliver(data,tort=false) {
             `);
             end__Time = new Date().getTime();
             execution___TIME = end__Time - start__Time;
-            console.log("Finished in :",execution___TIME," ms");
+            console.log("Finished processing in  :",execution___TIME," ms");
     }).catch(function (e) { console.log(e); });
 }
 else{
