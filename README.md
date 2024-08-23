@@ -38,7 +38,19 @@ Syntax:
 md.process(data)
 // data is data that you want to process
 ```
-
+## Themes:
+### 1. Light
+- it is the default theme. For forcefully apllying this theme, run below written script
+```
+theme.light();
+// will apply light theme
+```
+### 2. Dark
+- For applying dark theme, call the below written function
+```
+theme.dark();
+// will apply dark theme
+```
 The js file that i created have many functions which might be helpful for other tasks to.
 I was thinkin to make a personal-js github repositry in which i may keep these functions.
 here is a list of all function that i created
