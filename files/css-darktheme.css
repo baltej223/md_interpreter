@@ -1,0 +1,17 @@
+body{
+    background-color: black !important;
+    color: white;
+}
+code{
+    color: white !important;
+    background: black !important;
+}
+.hljs{
+    background: black !important;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+svg{
+    background: black !important;
+    fill: white;
+}
