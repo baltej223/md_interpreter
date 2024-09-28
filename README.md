@@ -170,7 +170,7 @@ $$$(".parentElement").then(parentElement=>{
 ```
 above wirtten can also be cut down
 ```
-$$$(".child").then(child=>{
+$$$(".parentElement .child").then(child=>{
  //code goes here
 });
 ```
