@@ -149,6 +149,31 @@ $$$(".classOfSomething",1).then(function(element){
     console.error(e);
 });
 ```
+## $$$() method
+```parentElement.$$$()``` words similar to the ```$$$()``` but this method only returnes element with provided selector, from parentElement.
+Its Usage:
+```js
+//document.getElementById("ParentElement")
+    .$$$("selector",index,toReturnArrayOfElements)
+        .then(child=>{
+        //code goes here
+        });
+//params: "selector" type:string, index, type:int, toReturnArrayOfElements type:bool
+```
+If parent element is also added by Js then
+```
+$$$(".parentElement").then(parentElement=>{
+    parentElement.$$$(".child").then(child=>{
+        //code goes here
+    });
+});
+```
+above wirtten can also be cut down
+```
+$$$(".child").then(child=>{
+ //code goes here
+});
+```
 ## escapeHtml()
 It escapes HTML for you, which is good for sensitisation
 <br/>
