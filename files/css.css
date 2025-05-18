@@ -1,5 +1,5 @@
 .parent {
-    padding: 10px 30px 0px 30vw;
+    padding: 10px 20vw 0px 20vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 @media only screen and (width < 600px) {
